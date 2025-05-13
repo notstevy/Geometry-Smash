@@ -31,3 +31,11 @@
 /home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/obj/Debug/net8.0/ref/Geometry_Smash.dll
 /home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Debug/net8.0/Content/Gometry.xnb
 /home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Debug/net8.0/Content/GometryBlock.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/obj/Debug/net8.0/Geometry_Smash.sourcelink.json
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Debug/net8.0/Content/font.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Debug/net8.0/Content/DefaultBlock.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Debug/net8.0/Content/GradientBlock.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Debug/net8.0/Content/Spike.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Debug/net8.0/MonoGame.Extended.dll
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Debug/net8.0/Content/RandomBlock.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Debug/net8.0/Content/SmolSpike.xnb

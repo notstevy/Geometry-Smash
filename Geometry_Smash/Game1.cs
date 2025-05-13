@@ -5,22 +5,31 @@ using EntitySystem;
 using System;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using MonoGame.Extended;
 
 namespace Geometry_Smash;
 
 public class Game1 : Game
 {
+    private List<Texture2D> Blocks = new List<Texture2D>();
+    private int CurrBlock = 2;
+
+
+    private bool Debug = false;
+
+
     public Vector2 CamPos;
 
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
     private Entity Cube;
-    private Texture2D BlockTexture;
     
     private double _elapsedTime;
     private int _frameCounter;
     private int _fps;
+
+    private SpriteFont font;
 
     public static Level CurrLevel;
 
@@ -48,11 +57,17 @@ public class Game1 : Game
 
         Cube = EntityUtils.CreateEntity(new Vector2(CurrLevel.StartPos.X, CurrLevel.StartPos.Y), Content.Load<Texture2D>("Gometry"), 3f);
 
-        Cube.AddComponent(new GravityComponent(Cube, 0.3f));
-        Cube.AddComponent(new ColliderComponent(Cube, ResetLevel, false));
+        Cube.AddComponent(new GravityComponent(Cube, 0.2f));
+        Cube.AddComponent(new ColliderComponent(Cube, ResetLevel, null, false));
         Cube.AddComponent(new CharacterControllerComponent(Cube, 25));
 
-        BlockTexture = Content.Load<Texture2D>("GometryBlock");
+        Blocks.Add(Content.Load<Texture2D>("DefaultBlock"));
+        Blocks.Add(Content.Load<Texture2D>("GradientBlock"));
+        Blocks.Add(Content.Load<Texture2D>("Spike"));
+        Blocks.Add(Content.Load<Texture2D>("RandomBlock"));
+        Blocks.Add(Content.Load<Texture2D>("SmolSpike"));
+        
+        font = Content.Load<SpriteFont>("font");
     }
 
 
@@ -77,7 +92,7 @@ public class Game1 : Game
             _frameCounter = 0;
             _elapsedTime = 0;
 
-            Console.WriteLine($"FPS: {_fps}");
+            //Console.WriteLine($"FPS: {_fps}");
         }
 
         if (LevelEditor) 
@@ -129,6 +144,21 @@ public class Game1 : Game
                 CamPos = CurrLevel.StartPos + new System.Numerics.Vector2((_graphics.PreferredBackBufferWidth / 2) - 200, _graphics.PreferredBackBufferHeight / 2 - 50);
             }
         }
+        
+        if (KeyboardState.IsKeyUp(Keys.Up) && PreviousKeyboardState.IsKeyDown(Keys.Up)) 
+        {
+            if (CurrBlock + 1 != Blocks.Count) 
+            {
+                CurrBlock++;
+            }
+        }
+        if (KeyboardState.IsKeyUp(Keys.Down) && PreviousKeyboardState.IsKeyDown(Keys.Down)) 
+        {
+            if (CurrBlock - 1 != -1)
+            {
+                CurrBlock--;
+            }
+        }
 
         //Cube.Position.X = Mouse.GetState().Position.X;
         //Cube.Position.Y = Mouse.GetState().Position.Y;
@@ -168,7 +198,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
 
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         EntityUtils.DrawEntities(_spriteBatch, CamPos);
@@ -176,6 +206,11 @@ public class Game1 : Game
         if (LevelEditor) 
         {
             _spriteBatch.Draw(Content.Load<Texture2D>("Gometry"), CurrLevel.StartPos + CamPos, null, Color.White, 0f, new Vector2(), 3f, SpriteEffects.None, 0f);
+
+            _spriteBatch.DrawString(font, "Level Editor", new Vector2(20, 20), Color.White);
+
+            _spriteBatch.Draw(Blocks[CurrBlock], new Vector2(20, 50), null, Color.White, 0f, new Vector2(0, 0), 3f, SpriteEffects.None, 0f);
+            _spriteBatch.DrawString(font, CurrBlock.ToString(), new Vector2(80, 60), Color.White);
         }
 
         _spriteBatch.End();
@@ -194,8 +229,16 @@ public class Game1 : Game
         
         if (!CurrLevel.BlockMap.ContainsKey(Position)) 
         {
-            Entity CreatedEntity = EntityUtils.CreateEntity(new Vector2(adjustedX, adjustedY), BlockTexture, 3f);
-            CreatedEntity.AddComponent(new ColliderComponent(CreatedEntity, ResetLevel));
+            Entity CreatedEntity = EntityUtils.CreateEntity(new Vector2(adjustedX, adjustedY), Blocks[CurrBlock], 3f);
+            
+            if (CurrBlock == 2) 
+            {
+                CreatedEntity.AddComponent(new ColliderComponent(CreatedEntity, ResetLevel, new System.Drawing.RectangleF(50f, 14f, 20, 30)));
+            }
+            else 
+            {
+                CreatedEntity.AddComponent(new ColliderComponent(CreatedEntity, ResetLevel));
+            }
 
             CurrLevel.BlockMap[Position] = CreatedEntity;
         }

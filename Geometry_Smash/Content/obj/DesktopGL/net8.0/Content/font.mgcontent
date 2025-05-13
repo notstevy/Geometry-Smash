@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Content/font.spritefont</SourceFile>
+  <SourceTime>2025-05-13T15:05:41.8777293+02:00</SourceTime>
+  <DestFile>/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Content/bin/DesktopGL/Content/font.xnb</DestFile>
+  <DestTime>2025-05-13T15:05:43.7207833+02:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2025-04-05T12:10:54+02:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2025-04-05T12:10:54+02:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

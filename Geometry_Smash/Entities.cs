@@ -2,6 +2,7 @@ using EntitySystem;
 using Geometry_Smash;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -31,9 +32,18 @@ public class Entity
     
     public void Draw(SpriteBatch _spriteBatch, Vector2 CamPos)
     {
+        ColliderComponent C = GetComponent<ColliderComponent>();
+    
         if (!Hidden) 
         {
             _spriteBatch.Draw(Texture, Position + CamPos, null, Color, Rotation, new Vector2(Texture.Width / 2, Texture.Height / 2), Scale, SpriteEffects.None, 0f);
+            
+            if (C != null && EntityUtils.Debug) 
+            {
+                var rectangleF = C.Hitbox.GetValueOrDefault();
+            
+                _spriteBatch.DrawRectangle(new RectangleF(new Vector2(rectangleF.Location.X, rectangleF.Location.Y) + Position + CamPos - new Vector2(Texture.Width / 2 + 16, Texture.Height / 2 + 16), new SizeF(rectangleF.Size.Width, rectangleF.Size.Height)), Color.Red, 1);
+            }
         }
     }
     
@@ -86,6 +96,8 @@ namespace EntitySystem
 {
     public class EntityUtils
     {
+        public static bool Debug = false;
+    
         public static void DrawEntities(SpriteBatch _spriteBatch, Vector2 CamPos) 
         {
             for (int i = 0; i < Game1.CurrLevel.Entities.Count; i++) 

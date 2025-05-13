@@ -1,6 +1,8 @@
 using System;
 using System.Data;
+using System.Drawing;
 using System.Reflection.Metadata;
+using System.Runtime;
 using System.Security.Cryptography.X509Certificates;
 using EntitySystem;
 using Geometry_Smash;
@@ -48,12 +50,16 @@ public class ColliderComponent : Component
     public bool OnGround;
 
     public Action ResetFunction;
-
-    public ColliderComponent(Entity parent, Action resetFunction, bool isstatic = true) : base(parent, !isstatic, null)
+    public RectangleF? Hitbox;
+    
+    public ColliderComponent(Entity parent, Action resetFunction, RectangleF? hitbox = null, bool isstatic = true) : base(parent, !isstatic, null)
     {
         UpdateFunction = Update;
         isStatic = isstatic;
         ResetFunction = resetFunction;
+        
+        if (hitbox == null) { Hitbox = new RectangleF(0f, 0f, Parent.Texture.Width * Parent.Scale, Parent.Texture.Height * Parent.Scale); }
+        else { Hitbox = hitbox; }
     }
     
     public void Update() 
@@ -75,30 +81,38 @@ public class ColliderComponent : Component
             if (other == this) { continue; }
             
             Vector2 otherPosition = other.Parent.Position;
-            float otherBottom = otherPosition.Y + other.Parent.Texture.Height * other.Parent.Scale;
-            float otherRight = otherPosition.X + other.Parent.Texture.Width * other.Parent.Scale;
+
+            RectangleF otherRectangle = other.Hitbox.GetValueOrDefault();
+
+            float otherBottom = otherRectangle.Bottom + other.Parent.Position.Y;
+            float otherRight = otherRectangle.Right + other.Parent.Position.X;
+
+            float otherTop = otherRectangle.Top + other.Parent.Position.Y;         
+                        
+            //float otherBottom = otherPosition.Y + other.Parent.Texture.Height * other.Parent.Scale;
+            //float otherRight = otherPosition.X + other.Parent.Texture.Width * other.Parent.Scale;
             
-            if (thisBottom > otherPosition.Y && thisRight > otherPosition.X && thisPosition.X < otherRight && thisPosition.Y < otherBottom) 
+            if (thisBottom > otherTop && thisRight > otherRight && thisPosition.X < otherRight && thisPosition.Y < otherBottom) 
             {
                 float UpdatedRight = thisRight;
                 float UpdatedBottom = thisBottom;
             
-                if (previousBottom - 1 <= otherPosition.Y) 
+                if (previousBottom - 1 <= otherTop) 
                 {
                     if (GravityComponente != null) 
                     {   
                         GravityComponente.YVel = 0f;
                     } 
 
-                    Parent.Position.Y = otherPosition.Y - Parent.Texture.Height * Parent.Scale; 
+                    Parent.Position.Y = otherTop - Parent.Texture.Height * Parent.Scale; 
                     Parent.Velocity.Y = 0f;
 
-                    UpdatedRight = otherPosition.Y - Parent.Texture.Height * Parent.Scale + (Parent.Texture.Width * Parent.Scale);
+                    UpdatedRight = otherTop - Parent.Texture.Height * Parent.Scale + (Parent.Texture.Width * Parent.Scale);
                     
                     OnGround = true;
                 }
 
-                if (UpdatedRight > otherPosition.Y && otherPosition.Y < UpdatedRight !& thisBottom - otherPosition.Y > 10f) 
+                if (UpdatedRight > otherTop && otherTop < UpdatedRight !& thisBottom - otherTop > 10f) 
                 {
                     ResetFunction.Invoke();
                 }
