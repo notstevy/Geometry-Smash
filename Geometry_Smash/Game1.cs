@@ -3,20 +3,16 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using EntitySystem;
 using System;
-using System.Runtime.CompilerServices;
 using System.Collections.Generic;
-using MonoGame.Extended;
 
 namespace Geometry_Smash;
 
 public class Game1 : Game
 {
     private List<Texture2D> Blocks = new List<Texture2D>();
-    private int CurrBlock = 2;
+    private int CurrBlock = 0;
 
-
-    private bool Debug = false;
-
+    public static bool Debug = false;
 
     public Vector2 CamPos;
 
@@ -43,11 +39,15 @@ public class Game1 : Game
 
         //IsFixedTimeStep = false;
         //_graphics.SynchronizeWithVerticalRetrace = false;
+
+        Window.AllowUserResizing = true;
     }
 
     protected override void Initialize()
     {
-        CurrLevel = new Level(new System.Numerics.Vector2(0, 0), new Dictionary<Microsoft.Xna.Framework.Vector2, Entity>(), new List<Entity>(), new List<ColliderComponent>());
+        CurrLevel = new Level(new System.Numerics.Vector2(0, 0), new Dictionary<Vector2, Entity>(), new List<Entity>(), new List<ColliderComponent>());
+        
+        
         base.Initialize();
     }
 
@@ -58,7 +58,7 @@ public class Game1 : Game
         Cube = EntityUtils.CreateEntity(new Vector2(CurrLevel.StartPos.X, CurrLevel.StartPos.Y), Content.Load<Texture2D>("Gometry"), 3f);
 
         Cube.AddComponent(new GravityComponent(Cube, 0.2f));
-        Cube.AddComponent(new ColliderComponent(Cube, ResetLevel, null, false));
+        Cube.AddComponent(new ColliderComponent(Cube, ResetLevel, null, false, false));
         Cube.AddComponent(new CharacterControllerComponent(Cube, 25));
 
         Blocks.Add(Content.Load<Texture2D>("DefaultBlock"));
@@ -131,6 +131,10 @@ public class Game1 : Game
             }
         }
         
+        if (KeyboardState.IsKeyUp(Keys.Z) && PreviousKeyboardState.IsKeyDown(Keys.Z)) 
+        {
+            Debug = !Debug;
+        }
         
         if (KeyboardState.IsKeyUp(Keys.F) && PreviousKeyboardState.IsKeyDown(Keys.F)) 
         {
@@ -198,7 +202,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.CornflowerBlue);
 
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         EntityUtils.DrawEntities(_spriteBatch, CamPos);
@@ -233,7 +237,7 @@ public class Game1 : Game
             
             if (CurrBlock == 2) 
             {
-                CreatedEntity.AddComponent(new ColliderComponent(CreatedEntity, ResetLevel, new System.Drawing.RectangleF(50f, 14f, 20, 30)));
+                CreatedEntity.AddComponent(new ColliderComponent(CreatedEntity, ResetLevel, new System.Drawing.RectangleF(14f, 14f, 20, 30), true));
             }
             else 
             {

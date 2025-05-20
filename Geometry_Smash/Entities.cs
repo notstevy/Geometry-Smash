@@ -38,7 +38,7 @@ public class Entity
         {
             _spriteBatch.Draw(Texture, Position + CamPos, null, Color, Rotation, new Vector2(Texture.Width / 2, Texture.Height / 2), Scale, SpriteEffects.None, 0f);
             
-            if (C != null && EntityUtils.Debug) 
+            if (C != null && Game1.Debug) 
             {
                 var rectangleF = C.Hitbox.GetValueOrDefault();
             
@@ -96,8 +96,6 @@ namespace EntitySystem
 {
     public class EntityUtils
     {
-        public static bool Debug = false;
-    
         public static void DrawEntities(SpriteBatch _spriteBatch, Vector2 CamPos) 
         {
             for (int i = 0; i < Game1.CurrLevel.Entities.Count; i++) 

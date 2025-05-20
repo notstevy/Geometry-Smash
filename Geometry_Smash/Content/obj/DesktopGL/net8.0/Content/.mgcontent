@@ -4,14 +4,14 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Content/DefaultBlock.png</File>
-    <File>/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Content/font.spritefont</File>
-    <File>/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Content/Gometry.png</File>
-    <File>/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Content/GometryBlock.png</File>
-    <File>/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Content/GradientBlock.png</File>
-    <File>/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Content/RandomBlock.png</File>
-    <File>/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Content/SmolSpike.png</File>
-    <File>/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Content/Spike.png</File>
+    <File>/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Content/DefaultBlock.png</File>
+    <File>/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Content/font.spritefont</File>
+    <File>/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Content/Gometry.png</File>
+    <File>/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Content/GometryBlock.png</File>
+    <File>/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Content/GradientBlock.png</File>
+    <File>/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Content/RandomBlock.png</File>
+    <File>/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Content/SmolSpike.png</File>
+    <File>/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Content/Spike.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

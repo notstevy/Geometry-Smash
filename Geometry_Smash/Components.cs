@@ -1,13 +1,8 @@
 using System;
-using System.Data;
 using System.Drawing;
 using System.Reflection.Metadata;
-using System.Runtime;
-using System.Security.Cryptography.X509Certificates;
-using EntitySystem;
 using Geometry_Smash;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 public class Component 
@@ -49,30 +44,35 @@ public class ColliderComponent : Component
     public bool isStatic;
     public bool OnGround;
 
+    public bool AlwaysKill;
+
     public Action ResetFunction;
     public RectangleF? Hitbox;
     
-    public ColliderComponent(Entity parent, Action resetFunction, RectangleF? hitbox = null, bool isstatic = true) : base(parent, !isstatic, null)
+    public ColliderComponent(Entity parent, Action resetFunction, RectangleF? hitbox = null, bool alwaysKill = false, bool isstatic = true) : base(parent, !isstatic, null)
     {
         UpdateFunction = Update;
         isStatic = isstatic;
         ResetFunction = resetFunction;
+        AlwaysKill = alwaysKill;
         
         if (hitbox == null) { Hitbox = new RectangleF(0f, 0f, Parent.Texture.Width * Parent.Scale, Parent.Texture.Height * Parent.Scale); }
         else { Hitbox = hitbox; }
     }
+
+    private float previousBottom;
+    private float previousRight;
     
     public void Update() 
     {
         OnGround = false;
 
-        Vector2 thisPosition = Parent.Position + Parent.Velocity;
-        float thisBottom = thisPosition.Y + (Parent.Texture.Height * Parent.Scale) + Parent.Velocity.Y;
-        float thisRight = thisPosition.X + (Parent.Texture.Width * Parent.Scale) + Parent.Velocity.X;
+        Vector2 thisPosition = Parent.Position;
+        var thisHitbox = Hitbox.GetValueOrDefault();
 
-        float previousBottom = thisPosition.Y + (Parent.Texture.Height * Parent.Scale);
-        float previousRight = thisPosition.X + (Parent.Texture.Width * Parent.Scale);
-
+        float thisBottom = thisHitbox.Bottom + Parent.Position.Y;
+        float thisRight = thisHitbox.Right + Parent.Position.X;
+        
         GravityComponent GravityComponente = Parent.GetComponent<GravityComponent>(); 
 
         for (int i = 0; i < Game1.CurrLevel.Collider.Count; i++) 
@@ -85,6 +85,7 @@ public class ColliderComponent : Component
             RectangleF otherRectangle = other.Hitbox.GetValueOrDefault();
 
             float otherBottom = otherRectangle.Bottom + other.Parent.Position.Y;
+            float otherLeft = otherRectangle.Left + other.Parent.Position.X;
             float otherRight = otherRectangle.Right + other.Parent.Position.X;
 
             float otherTop = otherRectangle.Top + other.Parent.Position.Y;         
@@ -92,8 +93,13 @@ public class ColliderComponent : Component
             //float otherBottom = otherPosition.Y + other.Parent.Texture.Height * other.Parent.Scale;
             //float otherRight = otherPosition.X + other.Parent.Texture.Width * other.Parent.Scale;
             
-            if (thisBottom > otherTop && thisRight > otherRight && thisPosition.X < otherRight && thisPosition.Y < otherBottom) 
+            if (thisBottom > otherTop && thisRight > otherLeft && thisPosition.X < otherRight && thisPosition.Y < otherBottom) 
             {
+                if (other.AlwaysKill)
+                {
+                    ResetFunction.Invoke();
+                }
+
                 float UpdatedRight = thisRight;
                 float UpdatedBottom = thisBottom;
             
@@ -118,6 +124,9 @@ public class ColliderComponent : Component
                 }
             }
         }
+
+        previousBottom = thisBottom;
+        previousRight = thisRight;
     }
 }
 
@@ -141,7 +150,6 @@ public class CharacterControllerComponent : Component
         
             if (ColliderComponent.OnGround == true) 
             {
-                Console.WriteLine("CanJump");
                 if (KeyboardState.IsKeyDown(Keys.Space)) 
                 {
                     Parent.Velocity.Y -= JumpStrength;

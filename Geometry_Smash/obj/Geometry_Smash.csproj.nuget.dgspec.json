@@ -1,26 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Geometry_Smash.csproj": {}
+    "/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Geometry_Smash.csproj": {}
   },
   "projects": {
-    "/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Geometry_Smash.csproj": {
+    "/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Geometry_Smash.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Geometry_Smash.csproj",
+        "projectUniqueName": "/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Geometry_Smash.csproj",
         "projectName": "Geometry_Smash",
-        "projectPath": "/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/Geometry_Smash.csproj",
-        "packagesPath": "/home/katzi/.nuget/packages/",
-        "outputPath": "/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/obj/",
+        "projectPath": "/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/Geometry_Smash.csproj",
+        "packagesPath": "/home/aaron/.nuget/packages/",
+        "outputPath": "/home/aaron/MonoGame/Geometry_Smash/Geometry_Smash/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/katzi/.nuget/NuGet/NuGet.Config"
+          "/home/aaron/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -33,13 +32,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -56,6 +49,10 @@
             "MonoGame.Framework.DesktopGL": {
               "target": "Package",
               "version": "[3.8.*, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             }
           },
           "imports": [
@@ -69,18 +66,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.linux-x64",
-              "version": "[8.0.15, 8.0.15]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/9.0.105/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.116/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

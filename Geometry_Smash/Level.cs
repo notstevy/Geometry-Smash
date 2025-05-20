@@ -6,9 +6,9 @@ public class Level
 {
     public Vector2 StartPos;
 
-    public Dictionary<Microsoft.Xna.Framework.Vector2, Entity> BlockMap = new Dictionary<Microsoft.Xna.Framework.Vector2, Entity>();
 
     public List<Entity> Entities = new List<Entity>();
+    public Dictionary<Microsoft.Xna.Framework.Vector2, Entity> BlockMap = new Dictionary<Microsoft.Xna.Framework.Vector2, Entity>();
     public List<ColliderComponent> Collider = new List<ColliderComponent>();
     
     public Level(Vector2 startPos, Dictionary<Microsoft.Xna.Framework.Vector2, Entity> blockMap, List<Entity> entities, List<ColliderComponent> collider)

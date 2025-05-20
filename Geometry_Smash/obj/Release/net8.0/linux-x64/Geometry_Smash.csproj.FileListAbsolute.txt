@@ -202,3 +202,11 @@
 /home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/obj/Release/net8.0/linux-x64/Geometry_Smash.pdb
 /home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/obj/Release/net8.0/linux-x64/Geometry_Smash.genruntimeconfig.cache
 /home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/obj/Release/net8.0/linux-x64/ref/Geometry_Smash.dll
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Release/net8.0/linux-x64/Content/DefaultBlock.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Release/net8.0/linux-x64/Content/font.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Release/net8.0/linux-x64/Content/GradientBlock.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Release/net8.0/linux-x64/Content/RandomBlock.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Release/net8.0/linux-x64/Content/SmolSpike.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Release/net8.0/linux-x64/Content/Spike.xnb
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/bin/Release/net8.0/linux-x64/MonoGame.Extended.dll
+/home/katzi/MonoGame/Geometry_Smash/Geometry_Smash/obj/Release/net8.0/linux-x64/Geometry_Smash.sourcelink.json
