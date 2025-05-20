@@ -13,6 +13,7 @@
 
 **Controls**
 - You start the game in the Level editor
+- Press WASD to move the camera
 - You can press up arrow key and down arrow key to change the current block
 - Left click to place right click to remove
 - Press Z (or maybe y on qwerty keyboards) to show hitboxes
