@@ -25,8 +25,15 @@ jobs:
         run: dotnet test --no-build --verbosity normal
       - name: Publish
         run: dotnet publish --verbosity normal
-      - name: Upload build artifacts
+      - name: Upload build artifacts (linux)
         uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-latest'
         with:
           name: Binaries ${{ matrix.os }}
-          path: ${{ fromJSON(steps.upload.outputs.result).file }}
+          path: ‎Geometry_Smash/bin/Release/net8.0/linux-x64/Geometry_Smash
+      - name: Upload build artifacts (windows)
+        uses: actions/upload-artifact@v4
+        if: matrix.os == 'windows-latest'
+        with:
+          name: Binaries ${{ matrix.os }}
+          path: ‎Geometry_Smash/bin/Release/net8.0/win-x64/Geometry_Smash.exe
